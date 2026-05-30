@@ -65,8 +65,13 @@ with open("good.json", "r") as f:
     good = json.load(f)
 
 bad = __get_local_host_ips()
+
+myip = get_host_ip()
+
 if GATEWAY_IP in bad:
     bad.remove(GATEWAY_IP)
+if myip in bad:
+	bad.remove(myip)
 for host in good:
         if host in bad:
             bad.remove(host)
@@ -86,8 +91,8 @@ def flood(target: str) -> None:
     sleep(0.5)
 
 def main():
-    print(good)
-    print (bad)
+    print("IP's in the good.json: ", f"{F.GREEN}{good}{F.RESET}")
+    print("IP's that gonna be blocked: ", f"{F.RED}{bad}{F.RESET}")
     sleep(5)
     while True:
         for target in bad:
